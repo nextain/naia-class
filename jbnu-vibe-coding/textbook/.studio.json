@@ -3,6 +3,14 @@
   "title": "Discord와 Claude Code로 운영하는 원격 AI 작업실",
   "type": "book",
   "langs": ["ko"],
+  "course_context": {
+    "location": "전주",
+    "institutions": ["전북대학교", "원광대학교"],
+    "program": "JST 공유대학",
+    "audience": "취·창업 동아리 참여자",
+    "headcount": 25,
+    "naming_note": "전주는 개최 지역이며, 대학명은 전주대학교가 아니라 전북대학교다."
+  },
   "biblio": {"author":"양병석 (Luke Yang)","subtitle":"전북대학교·원광대학교 JST 공유대학 취·창업 동아리 25명 실습","publisher":"넥스테인 (Nextain)","date":"2026-07-28","edition":"JST 공유대학 실습판","isbn":"","license":"교재 CC BY-NC 4.0 · 코드 Apache-2.0 · Copyright 2026 Nextain Inc."},
   "status":"draft","created":"2026-07-21","tags":["naia-adk","Discord","Claude Code","FactChat","HWP","초기창업패키지"],
   "publishing":{"target":"wikidocs","mode":"api","book_id":20748,"url":"https://wikidocs.net/book/20748"},
