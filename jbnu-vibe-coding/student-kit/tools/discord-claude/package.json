@@ -1,0 +1,13 @@
+{
+  "name": "naia-discord-claude-worker",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test --test-isolation=none test/worker.test.mjs",
+    "start": "node worker.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

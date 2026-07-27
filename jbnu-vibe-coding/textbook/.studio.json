@@ -1,0 +1,10 @@
+{
+  "slug": "naia-discord-codex-workshop-jeonju",
+  "title": "Discord와 Claude Code로 운영하는 원격 AI 작업실",
+  "type": "book",
+  "langs": ["ko"],
+  "biblio": {"author":"양병석 (Luke Yang)","subtitle":"전북대학교·원광대학교 JST 공유대학 취·창업 동아리 25명 실습","publisher":"넥스테인 (Nextain)","date":"2026-07-28","edition":"JST 공유대학 실습판","isbn":"","license":"교재 CC BY-NC 4.0 · 코드 Apache-2.0 · Copyright 2026 Nextain Inc."},
+  "status":"draft","created":"2026-07-21","tags":["naia-adk","Discord","Claude Code","FactChat","HWP","초기창업패키지"],
+  "publishing":{"target":"wikidocs","mode":"api","book_id":20748,"url":"https://wikidocs.net/book/20748"},
+  "note":"2026년 7월 28일 전북대학교·원광대학교 JST 공유대학 취·창업 동아리 참여자 25명 대상 95분 실습. 깨끗한 Windows 11 노트북에서 수업 Discord와 도우미 에이전트를 이용하고, naia-adk 하나, 전북대학교 FactChat API, Claude Code, 개인 Discord 서버, GitHub Pages 홈페이지, 초기창업패키지 HWPX 작성을 한 사이클로 실습한다."
+}

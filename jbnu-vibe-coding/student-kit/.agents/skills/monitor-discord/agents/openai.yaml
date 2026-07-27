@@ -1,0 +1,4 @@
+interface:
+  display_name: "Monitor Discord"
+  short_description: "Start and verify the workshop Discord listener"
+  default_prompt: "Use $monitor-discord to start watching my configured Discord channel."
