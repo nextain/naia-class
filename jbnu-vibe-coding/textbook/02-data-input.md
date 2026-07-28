@@ -15,7 +15,7 @@
 
 ## 2-1. 학생용 ZIP을 naia-adk에 풀기
 
-1. 표지에서 내려받은 `jeonju-naia-student-kit.zip`을 찾습니다.
+1. 0장 OT에서 내려받은 `jeonju-naia-student-kit.zip`을 찾습니다.
 2. ZIP을 마우스 오른쪽 버튼으로 누르고 `압축 풀기` 또는 `모두 압축 풀기`를 선택합니다.
 3. 압축을 풀 위치에 `%USERPROFILE%\naia-adk`를 입력합니다.
 4. `압축 풀기`를 누릅니다.

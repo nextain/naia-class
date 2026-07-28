@@ -131,7 +131,7 @@ export function buildPrompt({ messageId, request, attachmentPaths, outboxPath, w
   const relativeOutbox = relative(workspace, outboxPath).split(sep).join("/");
   const mission = missionFromRequest(request, attachmentPaths);
   const missionRule = mission === "proposal"
-    ? "9. 이번 작업은 제안서 미션입니다. .agents/skills/proposal-writing/SKILL.md 전체를 읽고 그 절차를 따르세요. 첨부 HWP의 원본 표와 항목 순서를 보존하고 data-company/workshop/company.md, achievements.md, proposal-plan.md와 data-private/workshop/profile.md의 교육용 가상 정보를 사용하세요. 최종 결과는 초기창업패키지_모두봄랩_교육용.hwpx와 evidence.md이며, HWPX를 read-doc으로 다시 읽어 회사명과 주요 항목이 들어갔는지 검증하세요. 홈페이지 파일은 만들지 마세요."
+    ? "9. 이번 작업은 제안서 미션입니다. .agents/skills/proposal-writing/SKILL.md 전체를 읽고 그 절차를 따르세요. 첨부 HWP의 원본 표와 항목 순서를 보존하고 data-company/workshop/company.md, achievements.md, proposal-plan.md와 data-private/workshop/profile.md의 교육용 가상 정보를 사용하세요. 먼저 완성 원고를 data-private/discord-claude/temp/proposal.md에 작성하세요. .agents/skills/proposal-writing/scripts/convert_hwp_to_hwpx.ps1로 원본 HWP를 temp의 변환본 HWPX로 만든 뒤, .agents/skills/proposal-writing/scripts/populate_hwpx.py의 --template에 변환본, --content에 완성 원고, --output에 최종 outbox HWPX를 지정하세요. 한컴 COM으로 내용을 직접 입력하거나 HWPX를 처음부터 ZIP/XML 묶음으로 만들지 마세요. 임시 파일과 제작 스크립트는 temp에만 두고 outbox에는 넣지 마세요. 최종 결과는 초기창업패키지_모두봄랩_교육용.hwpx와 evidence.md이며, HWPX를 read-doc으로 다시 읽어 회사명과 문제 인식, 실현 가능성, 성장전략, 팀 구성이 추출되는지 검증하세요. 추출되지 않으면 완료로 보고하지 마세요. 홈페이지 파일은 만들지 마세요."
     : "9. 이 수업의 Discord 원격 작업은 제안서만 허용합니다. HWP/HWPX 양식을 첨부하고 제안서 작성을 요청하라고 안내하며 다른 파일은 만들지 마세요.";
   return [
     "당신은 Discord에서 원격으로 호출된 Claude Code 작업자입니다.",
@@ -296,6 +296,9 @@ export async function runClaude({ options, prompt, sessionId, spawnFn = spawn })
     ...process.env,
     ANTHROPIC_BASE_URL: options.baseUrl,
     ANTHROPIC_AUTH_TOKEN: options.factchatKey,
+    // The worker already has a strict prompt, tool allowlist, and outbox boundary.
+    // Avoid blocking an unattended Discord request on a local harness session.
+    CLAUDE_HARNESS: "off",
   };
   delete childEnv.ANTHROPIC_API_KEY;
   delete childEnv.JBD_KEY;
@@ -321,7 +324,10 @@ export async function runClaude({ options, prompt, sessionId, spawnFn = spawn })
     child.stderr?.on("data", (chunk) => { stderr += chunk; });
     child.on("error", reject);
     child.on("close", (code) => {
-      if (code !== 0) return reject(new Error(`Claude Code exited with code ${code}: ${stderr.slice(-300)}`));
+      if (code !== 0) {
+        const diagnostic = [stderr, stdout].map((value) => value.trim()).filter(Boolean).join(" | ").slice(-600);
+        return reject(new Error(`Claude Code exited with code ${code}: ${diagnostic || "no diagnostic output"}`));
+      }
       try { resolvePromise(parseClaudeResult(stdout)); }
       catch (error) { reject(new Error(`Claude Code JSON parse failed: ${error instanceof Error ? error.message : "unknown"}`)); }
     });
@@ -417,6 +423,21 @@ export function createMessageProcessor({ options, discord, download = downloadAt
             ? state.sessionId
             : undefined;
           const result = await run({ options, prompt, sessionId: resumeSessionId });
+          const deliverables = (await files(outboxPath)).filter((path) => {
+            const name = basename(path).toLowerCase();
+            return extname(name) === ".hwpx" || name === "evidence.md";
+          });
+          const hwpxFiles = deliverables.filter((path) => extname(path).toLowerCase() === ".hwpx");
+          if (!hwpxFiles.length) throw new Error("Claude Code created no HWPX deliverable");
+          const verifiedPaths = await prepare(hwpxFiles, options);
+          const verificationText = (await Promise.all(
+            verifiedPaths
+              .filter((path) => extname(path).toLowerCase() === ".txt")
+              .map((path) => readFile(path, "utf8")),
+          )).join("\n");
+          for (const required of ["모두봄랩", "문제 인식", "실현 가능성", "성장전략", "팀 구성"]) {
+            if (!verificationText.includes(required)) throw new Error(`HWPX verification is missing: ${required}`);
+          }
           const nextState = {
             sessionId: result.sessionId ?? state.sessionId,
             updatedAt: now(),
@@ -424,7 +445,7 @@ export function createMessageProcessor({ options, discord, download = downloadAt
           };
           await saveState(statePath, nextState);
           for (const chunk of discordChunks(result.text)) await discord.sendText(options.channelId, chunk, message.id);
-          await discord.sendFiles(options.channelId, await files(outboxPath), message.id);
+          await discord.sendFiles(options.channelId, deliverables, message.id);
         } catch (error) {
           const reason = error instanceof Error ? error.message.replace(/[\r\n]+/g, " ").slice(0, 240) : "unknown error";
           await discord.sendText(options.channelId, `작업에 실패했습니다: ${reason}`, message.id);
@@ -490,7 +511,7 @@ async function main() {
   }
   const discord = discordClient(options.token);
   const processor = createMessageProcessor({ options, discord });
-  process.stdout.write(`[discord-claude] watching guild=${options.guildId} channel=${options.channelId} user=${options.userId}\n`);
+  process.stdout.write(`[discord-claude] watching guild=${options.guildId} channel=${options.channelId}\n`);
   for (;;) {
     try {
       await connectGateway(options, processor, discord);

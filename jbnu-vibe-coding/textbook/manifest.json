@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "generator": "naia-workshop-wikidocs-publisher/v1",
-  "generatedAt": "2026-07-27T17:04:07.862Z",
+  "generatedAt": "2026-07-28T00:00:52.648Z",
   "book": {
     "slug": "naia-discord-codex-workshop-jeonju",
     "title": "Discord와 Claude Code로 운영하는 원격 AI 작업실",
@@ -9,68 +9,59 @@
     "target": "wikidocs"
   },
   "navigationSource": "SUMMARY.md",
-  "chapterCount": 12,
+  "chapterCount": 11,
   "files": [
     {
       "role": "metadata",
       "source": ".studio.json",
       "output": ".studio.json",
-      "bytes": 1145,
-      "sha256": "5a892eb8aa3a2c1c265393d2dad2c9f44a21f499e05710a1158e3bafb08b9ee6"
+      "bytes": 1479,
+      "sha256": "3ca9699913e8ed4215b13c1dcce88897640d79c8ed3d8d89198e028574319cbc"
     },
     {
       "role": "metadata",
       "source": "SUMMARY.md",
       "output": "SUMMARY.md",
-      "bytes": 688,
-      "sha256": "ee4364705424e9ee5b18ada867efb6df50b3540304c75e2a4f5764b5b81fd7ce"
+      "bytes": 667,
+      "sha256": "c1ad8eb11fb7c7df1a5a3632726ebd77773fccc363d0407e2f49db38b46082b1"
     },
     {
       "role": "metadata",
       "source": "TOC.md",
       "output": "TOC.md",
-      "bytes": 688,
-      "sha256": "ee4364705424e9ee5b18ada867efb6df50b3540304c75e2a4f5764b5b81fd7ce"
+      "bytes": 667,
+      "sha256": "c1ad8eb11fb7c7df1a5a3632726ebd77773fccc363d0407e2f49db38b46082b1"
     },
     {
       "role": "chapter",
       "order": 1,
-      "title": "표지",
-      "source": "cover.md",
-      "output": "cover.md",
-      "bytes": 4064,
-      "sha256": "a68f592ca02a972d605014f6c7640235d8370315fc86873d016ba0ba79e98b8b"
+      "title": "0. OT — 오늘 학습할 것 (5분)",
+      "source": "00-ot.md",
+      "output": "00-ot.md",
+      "bytes": 5404,
+      "sha256": "ebcd93f20adbf42087a9d563a143453365fa485a90bb00a0131424a4803092b7"
     },
     {
       "role": "chapter",
       "order": 2,
-      "title": "0. OT — 오늘 학습할 것 (5분)",
-      "source": "00-ot.md",
-      "output": "00-ot.md",
-      "bytes": 3710,
-      "sha256": "49be62bec433e88f28f8b1ab5c8a93141d20381021868615ce050eb13695bc1e"
+      "title": "1. 사전 설치 (15분)",
+      "source": "01-install.md",
+      "output": "01-install.md",
+      "bytes": 11456,
+      "sha256": "0d5d162724261fa4d300aa2de973f0813519383132d17fc82f7dbb11cf3928de"
     },
     {
       "role": "chapter",
       "order": 3,
-      "title": "1. 사전 설치 (15분)",
-      "source": "01-install.md",
-      "output": "01-install.md",
-      "bytes": 11465,
-      "sha256": "34bbe09e4f5c2c8bd23cc59aebeb9f66e4b776eaf028e3d131e58c1594df75e5"
+      "title": "2. 가상 회사 정보와 개인정보 입력 (10분)",
+      "source": "02-data-input.md",
+      "output": "02-data-input.md",
+      "bytes": 6181,
+      "sha256": "34a61d6bc9453487844c49ab69210211ce7ee223d37f70d764d8f0b9571e41e1"
     },
     {
       "role": "chapter",
       "order": 4,
-      "title": "2. 가상 회사 정보와 개인정보 입력 (10분)",
-      "source": "02-data-input.md",
-      "output": "02-data-input.md",
-      "bytes": 6180,
-      "sha256": "0d8f0841ba93b9978ef8cbcb4ee7ed84f070ecfcf189cd6ac04ae36e10c52993"
-    },
-    {
-      "role": "chapter",
-      "order": 5,
       "title": "3. Claude Code로 홈페이지 제작·배포 (15분)",
       "source": "03-homepage-deploy.md",
       "output": "03-homepage-deploy.md",
@@ -79,7 +70,7 @@
     },
     {
       "role": "chapter",
-      "order": 6,
+      "order": 5,
       "title": "4. Discord 연동 (20분)",
       "source": "04-discord-link.md",
       "output": "04-discord-link.md",
@@ -88,7 +79,7 @@
     },
     {
       "role": "chapter",
-      "order": 7,
+      "order": 6,
       "title": "5. Discord로 HWPX 만들기 (20분)",
       "source": "05-discord-work.md",
       "output": "05-discord-work.md",
@@ -97,7 +88,7 @@
     },
     {
       "role": "chapter",
-      "order": 8,
+      "order": 7,
       "title": "6. Naia 소개 (10분)",
       "source": "06-naia.md",
       "output": "06-naia.md",
@@ -106,16 +97,16 @@
     },
     {
       "role": "chapter",
-      "order": 9,
+      "order": 8,
       "title": "부록 A. 문제 해결",
       "source": "appendix-a-troubleshooting.md",
       "output": "appendix-a-troubleshooting.md",
-      "bytes": 2077,
-      "sha256": "b64e4c80fd482c0a0da258a34936aed215b7f25a5cf4cf5da6e73cc121149e65"
+      "bytes": 2286,
+      "sha256": "4d045acd8fe8650e901943b3a4786bcc9d118b78cc240aa23f868135b43de1b5"
     },
     {
       "role": "chapter",
-      "order": 10,
+      "order": 9,
       "title": "부록 B. 복사해서 쓰는 요청문",
       "source": "appendix-b-prompts.md",
       "output": "appendix-b-prompts.md",
@@ -124,7 +115,7 @@
     },
     {
       "role": "chapter",
-      "order": 11,
+      "order": 10,
       "title": "부록 C. 강사용 진행표",
       "source": "appendix-c-instructor-runbook.md",
       "output": "appendix-c-instructor-runbook.md",
@@ -133,7 +124,7 @@
     },
     {
       "role": "chapter",
-      "order": 12,
+      "order": 11,
       "title": "부록 D. 쉬운 용어 사전",
       "source": "appendix-d-glossary.md",
       "output": "appendix-d-glossary.md",

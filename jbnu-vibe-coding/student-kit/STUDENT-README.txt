@@ -1,6 +1,8 @@
 전북대학교·원광대학교 JST 공유대학 원격 AI 작업실 학생용 파일
 
-1. 학생용 ZIP을 내려받아 둡니다.
+수업 Discord 참가 QR 이미지는 assets\discord-class-invite-qr.png에 있습니다.
+
+1. 0장 OT에서 학생용 ZIP을 내려받아 둡니다.
 2. PowerShell을 엽니다.
 3. 교재 1장대로 Git, Node.js, Python, Claude Code를 설치합니다.
 4. naia-adk를 $HOME\naia-adk에 복제하고 수업 기준 커밋 a3f01f5를 선택합니다.

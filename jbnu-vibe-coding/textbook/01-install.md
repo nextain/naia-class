@@ -4,7 +4,7 @@
 
 Git, GitHub 저장소, `naia-adk`, Claude Code를 준비하고 간단한 응답까지 확인합니다.
 
-표지에서 학생용 ZIP을 먼저 내려받아 압축을 풉니다. 이 장의 설치는 명령을 한 줄씩 복사해 PowerShell에 붙여 넣는 방식입니다.
+0장 OT에서 학생용 ZIP을 먼저 내려받아 둡니다. 이 장의 설치는 명령을 한 줄씩 복사해 PowerShell에 붙여 넣는 방식입니다.
 
 ## 1-1. PowerShell 열기
 

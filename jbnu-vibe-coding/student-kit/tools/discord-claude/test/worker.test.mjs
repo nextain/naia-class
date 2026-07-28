@@ -14,6 +14,7 @@ import {
   missionFromRequest,
   parseClaudeResult,
   parseOptions,
+  runClaude,
   safeFilename,
 } from "../worker.mjs";
 
@@ -100,6 +101,7 @@ test("filenames are flattened and proposal prompt requires HWPX delivery", () =>
   assert.match(prompt, /자료에 없는 항목은 메타 설명을 쓰지 말고 빈칸으로 유지하세요/);
   assert.doesNotMatch(prompt, new RegExp(['확인', '필요'].join(' ')));
   assert.match(prompt, /초기창업패키지_모두봄랩_교육용\.hwpx/);
+  assert.match(prompt, /populate_hwpx\.py/);
   assert.doesNotMatch(prompt, /Tailwind CDN/);
   assert.doesNotMatch(prompt, /\.agents\/skills\/project-create\/SKILL\.md/);
   assert.doesNotMatch(prompt, /D:\\workspace|\/workspace\/data-private/);
@@ -134,6 +136,55 @@ test("Claude Code JSON yields a stable session id and final text", () => {
   });
 });
 
+test("Claude Code runs unattended with the ADK harness disabled and Discord secrets removed", async () => {
+  let captured;
+  const spawnFn = (command, args, spawnOptions) => {
+    captured = { command, args, spawnOptions };
+    const child = new EventEmitter();
+    child.stdout = new EventEmitter();
+    child.stderr = new EventEmitter();
+    child.stdout.setEncoding = () => {};
+    child.stderr.setEncoding = () => {};
+    queueMicrotask(() => {
+      child.stdout.emit("data", JSON.stringify({
+        type: "result",
+        subtype: "success",
+        session_id: "d47a43fb-d4b7-4cf5-8c46-782c0c19cd2f",
+        result: "완료했습니다.",
+      }));
+      child.emit("close", 0);
+    });
+    return child;
+  };
+  const previous = {
+    JBD_KEY: process.env.JBD_KEY,
+    DISCORD_BOT_TOKEN: process.env.DISCORD_BOT_TOKEN,
+    DISCORD_GUILD_ID: process.env.DISCORD_GUILD_ID,
+    DISCORD_CHANNEL_ID: process.env.DISCORD_CHANNEL_ID,
+  };
+  Object.assign(process.env, {
+    JBD_KEY: "must-not-leak",
+    DISCORD_BOT_TOKEN: "must-not-leak",
+    DISCORD_GUILD_ID: ids.guildId,
+    DISCORD_CHANNEL_ID: ids.channelId,
+  });
+  try {
+    const result = await runClaude({ options: options(process.cwd()), prompt: "테스트", spawnFn });
+    assert.equal(result.text, "완료했습니다.");
+    assert.equal(captured.spawnOptions.env.CLAUDE_HARNESS, "off");
+    assert.equal(captured.spawnOptions.env.ANTHROPIC_AUTH_TOKEN, "test-factchat-key");
+    assert.equal(captured.spawnOptions.env.JBD_KEY, undefined);
+    assert.equal(captured.spawnOptions.env.DISCORD_BOT_TOKEN, undefined);
+    assert.equal(captured.spawnOptions.env.DISCORD_GUILD_ID, undefined);
+    assert.equal(captured.spawnOptions.env.DISCORD_CHANNEL_ID, undefined);
+  } finally {
+    for (const [name, value] of Object.entries(previous)) {
+      if (value === undefined) delete process.env[name];
+      else process.env[name] = value;
+    }
+  }
+});
+
 test("session resumes only before the 30 minute idle boundary", () => {
   const state = { sessionId: "session-1", updatedAt: 1_000 };
   const timeout = 30 * 60 * 1_000;
@@ -155,6 +206,7 @@ test("authorized message runs once, reuses the session, and returns outbox files
     async sendFiles(channelId, paths, replyTo) { sent.push({ kind: "files", channelId, paths, replyTo }); },
   };
   const seenSessions = [];
+  const prepareCalls = [];
   const processor = createMessageProcessor({
     options: options(workspace),
     discord,
@@ -165,7 +217,16 @@ test("authorized message runs once, reuses the session, and returns outbox files
       await writeFile(path, "fixture");
       return [path];
     },
-    prepare: async (paths) => paths,
+    prepare: async (paths) => {
+      prepareCalls.push(paths.map((path) => path.split(/[\\/]/).at(-1)));
+      const prepared = [...paths];
+      for (const path of paths.filter((path) => path.endsWith(".hwpx"))) {
+        const sidecar = path.replace(/\.hwpx$/, ".txt");
+        await writeFile(sidecar, "모두봄랩 문제 인식 실현 가능성 성장전략 팀 구성\n");
+        prepared.push(sidecar);
+      }
+      return prepared;
+    },
     run: async ({ prompt, sessionId }) => {
       seenSessions.push(sessionId);
       const match = prompt.match(/data-private\/discord-claude\/outbox\/\d+/);
@@ -174,6 +235,7 @@ test("authorized message runs once, reuses the session, and returns outbox files
       await mkdir(outbox, { recursive: true });
       await writeFile(join(outbox, "초기창업패키지_모두봄랩_교육용.hwpx"), "test hwpx fixture\n");
       await writeFile(join(outbox, "evidence.md"), "# 교육용 근거\n");
+      await writeFile(join(outbox, "_build_hwpx.py"), "internal helper\n");
       return { sessionId: sessionId ?? "d47a43fb-d4b7-4cf5-8c46-782c0c19cd2f", text: "HWPX를 만들었습니다." };
     },
   });
@@ -193,6 +255,14 @@ test("authorized message runs once, reuses the session, and returns outbox files
   processor.enqueue(second);
   await processor.idle();
   assert.deepEqual(seenSessions, [undefined, "d47a43fb-d4b7-4cf5-8c46-782c0c19cd2f"]);
-  assert.equal(sent.filter(({ kind }) => kind === "files").length, 2);
+  assert.deepEqual(prepareCalls.map((paths) => paths.length), [1, 1, 0, 1]);
+  const fileMessages = sent.filter(({ kind }) => kind === "files");
+  assert.equal(fileMessages.length, 2);
+  for (const message of fileMessages) {
+    assert.deepEqual(message.paths.map((path) => path.split(/[\\/]/).at(-1)).sort(), [
+      "evidence.md",
+      "초기창업패키지_모두봄랩_교육용.hwpx",
+    ]);
+  }
   assert.match(await readFile(join(workspace, "data-private", "discord-claude", "state.json"), "utf8"), /d47a43fb-d4b7-4cf5-8c46-782c0c19cd2f/);
 });

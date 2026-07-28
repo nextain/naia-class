@@ -104,7 +104,14 @@ powershell -ExecutionPolicy Bypass -File scripts/convert_hwp_to_hwpx.ps1 `
   -SourcePath "공식양식.hwp" -OutputPath "제안서_작성본.hwpx"
 ```
 
-3. 변환본에 확정된 내용만 이식한다.
+3. 변환본에 확정된 내용만 이식한다. 이 교육용 Windows 실습에서는 완성 원고를 UTF-8 Markdown으로 만든 뒤, 변환본의 원본 항목을 보존하면서 다음 도구로 원고를 추가한다. HWPX를 ZIP/XML 묶음으로 처음부터 만들지 않는다.
+
+```powershell
+python scripts/populate_hwpx.py `
+  --template "변환된_공식양식.hwpx" `
+  --content "완성원고.md" `
+  --output "최종제안서.hwpx"
+```
 4. `read-doc`으로 재추출하여 제목 순서, 표, 핵심 문장, 숫자, 빈칸을 원고와 비교한다.
 5. 가능하면 전 페이지를 PDF 또는 이미지로 렌더링해 잘림, 표 넘침, 글꼴, 페이지 수를 확인한다.
 6. 작성 예시 문구를 삭제하기 전에 소항목 대응표 누락 0건을 확인하고, 이식 후에는 작성 예시·안내문 잔존 0건과 계층형 개조식 보존 여부를 검사한다.
