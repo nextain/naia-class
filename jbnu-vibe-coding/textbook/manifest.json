@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "generator": "naia-workshop-wikidocs-publisher/v1",
-  "generatedAt": "2026-07-28T01:49:22.138Z",
+  "generatedAt": "2026-07-28T01:57:10.062Z",
   "book": {
     "slug": "naia-discord-codex-workshop-jeonju",
     "title": "Discord와 Claude Code로 운영하는 원격 AI 작업실",
@@ -38,8 +38,8 @@
       "title": "0. OT — 오늘 학습할 것 (5분)",
       "source": "00-ot.md",
       "output": "00-ot.md",
-      "bytes": 5413,
-      "sha256": "2e38d7f88e773a1d558b51388ca49066ff16ea33ace252c2adc2c4308d724dab"
+      "bytes": 5559,
+      "sha256": "6a13aeccf605acea6bceb9c9c8609dfcc8a106f30ffc35e7b57d6dd7cee3afdd"
     },
     {
       "role": "chapter",

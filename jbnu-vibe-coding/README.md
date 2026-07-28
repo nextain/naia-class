@@ -12,7 +12,8 @@
 
 1. [온라인 교재](https://wikidocs.net/book/20748)를 엽니다.
 2. [학생용 실습자료 ZIP](jeonju-naia-student-kit.zip)을 내려받습니다.
-3. 교재 1장에서 `naia-adk`를 받은 뒤, 교재 2장의 안내에 따라 ZIP 전체를 `naia-adk` 폴더에 풉니다.
+3. 한 파일로 보려면 [수업 교재 PDF](naia-jbnu-vibe-coding-workshop.pdf)를 내려받습니다.
+4. 교재 1장에서 `naia-adk`를 받은 뒤, 교재 2장의 안내에 따라 ZIP 전체를 `naia-adk` 폴더에 풉니다.
 
 ## 폴더 구성
 
@@ -21,6 +22,7 @@
 | `textbook/` | 위키독스에 게시하는 마크다운 교재와 화면 이미지 |
 | `student-kit/` | 학생용 ZIP을 미리 풀어 확인할 수 있는 전체 실습자료 |
 | `jeonju-naia-student-kit.zip` | 학생이 한 번에 내려받아 사용하는 실습자료 |
+| `naia-jbnu-vibe-coding-workshop.pdf` | 표지와 전체 11개 장을 합친 배포용 교재 |
 
 학생용 자료에는 다음이 포함됩니다.
 
@@ -41,4 +43,3 @@
 ## 라이선스
 
 교재·설명문·교육용 이미지는 넥스테인 주식회사 소유이며 CC BY-NC 4.0을 적용합니다. 출처를 밝힌 인용과 비상업적 활용은 가능하고, 상업 이용은 사전 협의가 필요합니다. 실습 코드와 스크립트는 Apache License 2.0을 적용합니다. 자세한 내용은 저장소의 `CONTENT-LICENSE.md`와 `LICENSE`를 확인하세요.
-
