@@ -17,7 +17,7 @@
 
 1. 0장 OT에서 내려받은 `jeonju-naia-student-kit.zip`을 찾습니다.
 2. ZIP을 마우스 오른쪽 버튼으로 누르고 `압축 풀기` 또는 `모두 압축 풀기`를 선택합니다.
-3. 압축을 풀 위치에 `%USERPROFILE%\naia-adk`를 입력합니다.
+3. 압축을 풀 위치로 앞에서 내려받은 `naia-adk` 폴더를 선택합니다. 보통 파일 탐색기의 `내 PC > 로컬 디스크(C:) > 사용자(Users) > 내 사용자 이름 > naia-adk`에 있습니다.
 4. `압축 풀기`를 누릅니다.
 5. 같은 이름의 폴더를 합칠지 물으면 `예` 또는 `계속`을 누릅니다.
 
@@ -64,7 +64,13 @@ workshop-files\2026년도 초기창업패키지 사업계획서 양식.hwp
 
 확장자가 `.md`인 파일은 **마크다운(Markdown)** 형식의 텍스트 파일입니다. 제목, 목록, 표처럼 문서 구조를 간단한 기호로 표시하지만, 내용 자체는 일반 글자이므로 메모장으로도 열 수 있습니다. 보통은 옵시디언(Obsidian)이나 코딩 도구의 편집기에서 열면 제목과 표를 더 보기 좋게 확인할 수 있습니다.
 
+![](assets/image-38.png)
+
+![](assets/image-39.png)
+
 이 수업에서는 별도의 편집기를 설치하지 않아도 Claude Code가 마크다운 파일을 읽고 수정할 수 있습니다. 향후 연계할 **Naia Shell**에서는 워크스페이스 화면에서 `data-company`와 `data-private`의 마크다운 문서를 직접 찾아보고 열 수 있게 할 예정입니다.
+
+![나만의 작업 공간 — 아바타·파일·문서·세션을 한 화면에서](https://www.naia.land/_next/image?url=%2Fshowcase%2Fnaia-os-workspace.png\&w=3840\&q=75\&dpl=dpl_6nTo5PToMiZxNieLcrhC19EcLGaS)
 
 > 화면 캡처 위치: Naia Shell 워크스페이스에서 마크다운 문서를 찾아보는 화면
 

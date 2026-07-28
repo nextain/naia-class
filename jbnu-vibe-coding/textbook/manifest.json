@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "generator": "naia-workshop-wikidocs-publisher/v1",
-  "generatedAt": "2026-07-28T00:00:52.648Z",
+  "generatedAt": "2026-07-28T01:49:22.138Z",
   "book": {
     "slug": "naia-discord-codex-workshop-jeonju",
     "title": "Discord와 Claude Code로 운영하는 원격 AI 작업실",
@@ -38,8 +38,8 @@
       "title": "0. OT — 오늘 학습할 것 (5분)",
       "source": "00-ot.md",
       "output": "00-ot.md",
-      "bytes": 5404,
-      "sha256": "ebcd93f20adbf42087a9d563a143453365fa485a90bb00a0131424a4803092b7"
+      "bytes": 5413,
+      "sha256": "2e38d7f88e773a1d558b51388ca49066ff16ea33ace252c2adc2c4308d724dab"
     },
     {
       "role": "chapter",
@@ -47,8 +47,8 @@
       "title": "1. 사전 설치 (15분)",
       "source": "01-install.md",
       "output": "01-install.md",
-      "bytes": 11456,
-      "sha256": "0d5d162724261fa4d300aa2de973f0813519383132d17fc82f7dbb11cf3928de"
+      "bytes": 11518,
+      "sha256": "d3f049c8631f8ccdde4a70fbb5c762f40edefc283b1c63dabcd916d007e400f8"
     },
     {
       "role": "chapter",
@@ -56,8 +56,8 @@
       "title": "2. 가상 회사 정보와 개인정보 입력 (10분)",
       "source": "02-data-input.md",
       "output": "02-data-input.md",
-      "bytes": 6181,
-      "sha256": "34a61d6bc9453487844c49ab69210211ce7ee223d37f70d764d8f0b9571e41e1"
+      "bytes": 6591,
+      "sha256": "5ed015ef18945e1357f5fc6b8ebeb1eafcc9765116bd710e66b03d2a69487fa7"
     },
     {
       "role": "chapter",
@@ -65,8 +65,8 @@
       "title": "3. Claude Code로 홈페이지 제작·배포 (15분)",
       "source": "03-homepage-deploy.md",
       "output": "03-homepage-deploy.md",
-      "bytes": 6179,
-      "sha256": "dd432aaabcafaecf7812074a3180098f254b41c9d82784e31f48f1e44ca5c0b0"
+      "bytes": 7213,
+      "sha256": "413fbea078fc4916e02bdaa67e71d0ba9cfc6c0f52f521bcaba94fb45ff63adc"
     },
     {
       "role": "chapter",
@@ -308,17 +308,31 @@
     },
     {
       "role": "asset",
+      "source": "assets/image-37.png",
+      "output": "assets/image-37.png",
+      "bytes": 80034,
+      "sha256": "566a4a14d2c2123efba993bb3b338b75dbc2ac565eefee2a89249205311c8c4b"
+    },
+    {
+      "role": "asset",
+      "source": "assets/image-38.png",
+      "output": "assets/image-38.png",
+      "bytes": 57152,
+      "sha256": "ec8f5977c3a4ef5e5eec54caa6035ef8bec3973ccb6bb0daaa627449d221f32e"
+    },
+    {
+      "role": "asset",
+      "source": "assets/image-39.png",
+      "output": "assets/image-39.png",
+      "bytes": 95486,
+      "sha256": "124ffe7d8bd341dc03b742e1c84c4a3669c86c5ed3cae4d051da0e0b5d37838a"
+    },
+    {
+      "role": "asset",
       "source": "assets/image-4.png",
       "output": "assets/image-4.png",
       "bytes": 204808,
       "sha256": "928d51c4914549ed0f26779ca60e2bb6379bf7ea2718135e933fb6761af350c1"
-    },
-    {
-      "role": "asset",
-      "source": "assets/image-5.png",
-      "output": "assets/image-5.png",
-      "bytes": 82463,
-      "sha256": "f97a53a4f6eb73bf31f492bb259cf3524f50f7d0f46ddecfdaae8e5c2264f2e9"
     },
     {
       "role": "asset",
